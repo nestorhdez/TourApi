@@ -54,7 +54,7 @@ namespace TourApi.Controllers
             await _context.SaveChangesAsync();
 
             //return CreatedAtAction("GetTodoItem", new { id = todoItem.Id }, todoItem);
-            return CreatedAtAction(nameof(GetTourItem), new { id = tourItem.Id }, tourItem);
+            return CreatedAtAction(nameof(GetTourItem), new { id = tourItem.Id, CreatedAt = new DateTime(), LastModified = new DateTime() }, tourItem);
         }
         #endregion
 

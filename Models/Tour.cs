@@ -1,12 +1,4 @@
-/*
-    Nombre del tour
-    Descripción corta del tour
-    Observaciones, permitir html
-    Url de una imagen del tour
-    Fecha de creación
-    Fecha de la última modificación
-*/
-
+using System;
 
 namespace TourApi.Models
 {
@@ -16,5 +8,7 @@ namespace TourApi.Models
         public string Name { get; set; }
         public string Description { get; set; }
         public string Image { get; set; }
+        public DateTime CreatedAt { get; set; }
+        public DateTime LastModified { get; set; }
     }
 }
