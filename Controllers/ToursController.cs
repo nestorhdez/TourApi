@@ -50,11 +50,47 @@ namespace TourApi.Controllers
         [HttpPost]
         public async Task<ActionResult<Tour>> PostTour(Tour tourItem)
         {
+            tourItem.CreatedAt = DateTime.Now;
+            tourItem.LastModified = DateTime.Now;
+
             _context.Tours.Add(tourItem);
             await _context.SaveChangesAsync();
 
-            //return CreatedAtAction("GetTodoItem", new { id = todoItem.Id }, todoItem);
-            return CreatedAtAction(nameof(GetTourItem), new { id = tourItem.Id, CreatedAt = new DateTime(), LastModified = new DateTime() }, tourItem);
+            return CreatedAtAction(nameof(GetTourItem), new { id = tourItem.Id }, tourItem);
+        }
+        #endregion
+
+        #region snippet_Update
+        // PUT: api/Tours/5
+        [HttpPut("{id}")]
+        public async Task<IActionResult> PutTour(long id, Tour tour)
+        {
+            if (id != tour.Id)
+            {
+                return BadRequest();
+            }
+            
+            tour.LastModified = DateTime.Now;
+
+            _context.Entry(tour).State = EntityState.Modified;
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!TourExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return Ok(tour);
         }
         #endregion
 
@@ -76,7 +112,7 @@ namespace TourApi.Controllers
         }
         #endregion
 
-        private bool TodoItemExists(long id)
+        private bool TourExists(long id)
         {
             return _context.Tours.Any(e => e.Id == id);
         }
