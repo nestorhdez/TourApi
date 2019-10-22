@@ -25,7 +25,8 @@ namespace TourApi
                 options.AddPolicy(MyAllowSpecificOrigins,
                 builder =>
                 {
-                    builder.WithOrigins("http://localhost:8080")
+                    builder.WithOrigins("http://localhost:8080",
+                    "https://nestorhdez.github.io")
                         .AllowAnyHeader()
                         .AllowAnyMethod();
                 });
